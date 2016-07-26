@@ -1,3 +1,0 @@
-package: github.com/mehcode/go-bardo
-import:
-- package: github.com/jmoiron/sqlx
