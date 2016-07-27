@@ -1,6 +1,10 @@
 package bardo
 
-import "github.com/jmoiron/sqlx"
+import (
+	"database/sql"
+
+	"github.com/jmoiron/sqlx"
+)
 
 type Database struct {
 	db *sqlx.DB
@@ -17,8 +21,21 @@ func Wrap(db *sqlx.DB) *Database {
 	}
 }
 
+type Handle interface {
+	Execer
+	Queryer
+}
+
+type Execer interface {
+	Exec(query string, args ...interface{}) (sql.Result, error)
+}
+
+type Queryer interface {
+	Query(query string, args ...interface{}) (*sql.Rows, error)
+}
+
 // Handle returns the database/sql handle
-func (db *Database) Handle() interface{} {
+func (db *Database) Handle() Handle {
 	if db.transaction != nil {
 		return db.transaction.Tx
 	}
