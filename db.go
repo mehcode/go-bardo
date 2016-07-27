@@ -43,7 +43,7 @@ func (db *Database) Handle() Handle {
 	return db.db.DB
 }
 
-// Handlex returns the jmoiron/sqlx handle
-func (db *Database) Handlex() *sqlx.DB {
+// UnWrap returns the jmoiron/sqlx handle
+func (db *Database) UnWrap() *sqlx.DB {
 	return db.db
 }
