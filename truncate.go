@@ -17,7 +17,6 @@ func (db *Database) getAllTables() ([]string, error) {
 		 WHERE table_schema = 'public'
 		   AND table_type = 'BASE TABLE'
 			 AND table_name != 'goose_db_version'
-			 AND table_name != 'client'
 	`)
 
 	if err != nil {
@@ -48,7 +47,7 @@ func (db *Database) Truncate() error {
 
 	_, err = db.Exec(`
 		TRUNCATE TABLE ` + strings.Join(tablenames, ", ") + `
-		RESTART IDENTITY CASCADE
+		CASCADE
 	`)
 
 	if err != nil {
